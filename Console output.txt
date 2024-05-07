@@ -1,0 +1,66 @@
+R version 4.3.1 (2023-06-16 ucrt) -- "Beagle Scouts"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # Importing the data set
+> data <- read.csv("https://raw.githubusercontent.com/AdiPersonalWorks/Random/master/student_scores%20-%20student_scores.csv")
+> 
+> # Fitting the model
+> model <- lm(Scores ~ Hours, data)
+> 
+> # Plotting the Model
+> plot(data$Hours, data$Scores, main = "Hours of Study vs Scores",
++      ylab = "Scores", xlab = "Hours Studied",
++      col = "blue", pch = 16)
+> abline(model, col = "red")
+> 
+> # Model Summary
+> summary(model)
+
+Call:
+lm(formula = Scores ~ Hours, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-10.578  -5.340   1.839   4.593   7.265 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   2.4837     2.5317   0.981    0.337    
+Hours         9.7758     0.4529  21.583   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.603 on 23 degrees of freedom
+Multiple R-squared:  0.9529,	Adjusted R-squared:  0.9509 
+F-statistic: 465.8 on 1 and 23 DF,  p-value: < 2.2e-16
+
+> 
+> # Residual Analysis
+> par(mfrow = c(2, 2))
+> plot(model)
+> 
+> # Evaluating model performance
+> predicted <- predict(model, data)
+> rmse <- sqrt(mean((data$Scores - predicted)^2))
+> cat("Root Mean Squared Error (RMSE):", rmse, "\n")
+Root Mean Squared Error (RMSE): 5.374266 
+> 
+> # Predicted score if student studied for 9.25 hours a day
+> predicted_score <- predict(model, data.frame(Hours = 9.25))
+> cat("Predicted score if student studies for 9.25 hours/day:", predicted_score, "\n")
+Predicted score if student studies for 9.25 hours/day: 92.90985
