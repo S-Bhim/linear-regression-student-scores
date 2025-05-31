@@ -1,6 +1,3 @@
-# GRIP Task 1 Prediction Using Supervised ML with R
-# prepared by - Soumabha Bhim
-
 # Importing the data set
 data <- read.csv("https://raw.githubusercontent.com/AdiPersonalWorks/Random/master/student_scores%20-%20student_scores.csv")
 
